@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unst2st - 智能文档信息提取系统</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header>
+            <h1>📄 Unst2st</h1>
+            <p class="subtitle">非结构化文档智能提取系统</p>
+        </header>
+
+        <!-- 主内容区域 -->
+        <main>
+            <!-- 第一步：模板管理 -->
+            <section class="section" id="template-section">
+                <h2>第一步：选择或创建字段模板</h2>
+
+                <div class="template-controls">
+                    <div class="template-select-group">
+                        <label for="template-select">选择已有模板：</label>
+                        <select id="template-select">
+                            <option value="">-- 请选择模板 --</option>
+                        </select>
+                        <button id="load-template-btn" class="btn btn-secondary">加载模板</button>
+                        <button id="delete-template-btn" class="btn btn-danger">删除模板</button>
+                    </div>
+
+                    <div class="template-create-group">
+                        <button id="new-template-btn" class="btn btn-primary">创建新模板</button>
+                    </div>
+                </div>
+
+                <!-- 模板编辑器 -->
+                <div id="template-editor" style="display: none;">
+                    <h3>模板信息</h3>
+                    <div class="form-group">
+                        <label for="template-name">模板名称：</label>
+                        <input type="text" id="template-name" placeholder="例如：合作合同模板">
+                    </div>
+
+                    <h3>字段定义</h3>
+                    <div id="fields-container"></div>
+
+                    <div class="field-controls">
+                        <button id="add-field-btn" class="btn btn-secondary">➕ 添加字段</button>
+                        <button id="save-template-btn" class="btn btn-success">💾 保存模板</button>
+                    </div>
+                </div>
+
+                <div id="current-template-display" style="display: none;">
+                    <h3>当前使用的模板</h3>
+                    <div id="current-template-info" class="template-info"></div>
+                </div>
+            </section>
+
+            <!-- 第二步：上传文件 -->
+            <section class="section" id="upload-section">
+                <h2>第二步：上传文档文件</h2>
+
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-icon">📤</div>
+                    <p>拖拽文件到此处，或点击选择文件</p>
+                    <p class="file-types">支持格式：PDF, Word (.docx), Email (.eml, .msg), TXT</p>
+                    <input type="file" id="file-input" multiple accept=".pdf,.docx,.doc,.eml,.msg,.txt" style="display: none;">
+                </div>
+
+                <div id="file-list" class="file-list" style="display: none;">
+                    <h3>已选择的文件</h3>
+                    <ul id="file-items"></ul>
+                </div>
+
+                <button id="extract-btn" class="btn btn-primary btn-large" style="display: none;">
+                    🚀 开始提取信息
+                </button>
+
+                <div id="loading" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>正在提取信息，请稍候...</p>
+                </div>
+            </section>
+
+            <!-- 第三步：查看结果 -->
+            <section class="section" id="result-section" style="display: none;">
+                <h2>第三步：查看和编辑提取结果</h2>
+
+                <div class="result-controls">
+                    <button id="copy-table-btn" class="btn btn-secondary">📋 复制表格</button>
+                    <button id="reset-btn" class="btn btn-secondary">🔄 重新开始</button>
+                </div>
+
+                <div class="table-container">
+                    <table id="result-table">
+                        <thead>
+                            <tr id="table-header"></tr>
+                        </thead>
+                        <tbody id="table-body"></tbody>
+                    </table>
+                </div>
+
+                <p class="hint">💡 提示：单击单元格可编辑内容</p>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer>
+            <p>Powered by 智谱AI GLM-4 | Unst2st v1.0</p>
+        </footer>
+    </div>
+
+    <!-- Toast通知 -->
+    <div id="toast" class="toast"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
