@@ -15,10 +15,8 @@ COPY backend/requirements.txt .
 # 安装Python依赖
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 复制后端代码
+# 复制所有代码
 COPY backend/ ./backend/
-
-# 复制前端文件
 COPY frontend/ ./frontend/
 
 # 创建必要的目录
@@ -29,6 +27,8 @@ EXPOSE 8000
 
 # 设置环境变量
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
 
-# 启动命令
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# 启动命令 - 切换到backend目录运行
+WORKDIR /app/backend
+CMD ["python", "main.py"]
