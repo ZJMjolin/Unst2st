@@ -213,9 +213,13 @@ async def extract_information(
 @app.get("/health")
 async def health_check_endpoint():
     """健康检查端点"""
+    import os
+    # 直接从环境变量读取，不依赖全局变量
+    api_key = os.environ.get("ZHIPU_API_KEY", "")
     return {
         "status": "healthy",
-        "api_key_configured": bool(ZHIPU_API_KEY)
+        "api_key_configured": bool(api_key),
+        "api_key_length": len(api_key) if api_key else 0
     }
 
 
